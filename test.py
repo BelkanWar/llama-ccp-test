@@ -1,9 +1,4 @@
-import os
-import subprocess
 from llama_cpp import Llama
-
-if os.path.exists(".models/gemma-4-E4B-it-Q5_K_M.gguf") == False:
-    subprocess.run(["curl",  "-L",  "-O",  "https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF/resolve/main/gemma-4-E4B-it-Q5_K_M.gguf"])
 
 llm = Llama(
     model_path="./models/gemma-4-E4B-it-Q5_K_M.gguf",
