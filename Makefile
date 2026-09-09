@@ -1,8 +1,9 @@
-MODEL="gemma-4-E4B-it-Q5_K_M.gguf"
-URL="https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF/resolve/main/${MODEL}"
+MODEL="gemma-4-26B-A4B-it"
+VERSION="${MODEL}-UD-Q4_K_M.gguf"
+URL="https://huggingface.co/unsloth/${MODEL}-GGUF/resolve/main/${VERSION}"
 
 download-model ::
-	curl -L -o ./models/${MODEL} ${URL}
+	curl -L -o ./models/${VERSION} ${URL}
 
 install-claude-code ::
 	# reference: https://code.claude.com/docs/zh-TW/setup
@@ -17,7 +18,7 @@ install-claude-code ::
 	echo "" >> ~/.bashrc
 
 model-up ::
-	docker run --rm -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${MODEL}
+	docker run --rm -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION}
 
 model-up-gpu ::
-	docker run --rm --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${MODEL}
+	docker run --rm --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION}
