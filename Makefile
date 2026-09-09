@@ -7,7 +7,7 @@ download-model ::
 install-claude-code ::
 	# reference: https://code.claude.com/docs/zh-TW/setup
 	curl -fsSL https://claude.ai/install.sh | bash
-	echo export ANTHROPIC_BASE_URL=http://localhost:8080
+	echo export ANTHROPIC_BASE_URL=http://localhost:8080 >> ~/.bashrc
 	echo export ANTHROPIC_API_KEY="not_set" >> ~/.bashrc         # 隨便填入字串作為預留位置
 	echo export ANTHROPIC_AUTH_TOKEN="not_set" >> ~/.bashrc       # 隨便填入字串作為預留位置
 	# 關鍵優化設定（強烈建議加入，避免本地卡死或噴錯
