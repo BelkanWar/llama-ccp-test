@@ -1,5 +1,5 @@
 MODEL="gemma-4-E4B-it"
-VERSION="${MODEL}-Q4_K_M.gguf"
+VERSION="${MODEL}-Q8.gguf"
 URL="https://huggingface.co/unsloth/${MODEL}-GGUF/resolve/main/${VERSION}"
 
 download-model ::
@@ -22,3 +22,6 @@ model-up-cpu ::
 
 model-up ::
 	docker run --rm --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
+
+build ::
+	docker build -f Dockerfile -t converter:last . 

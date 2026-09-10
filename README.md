@@ -74,3 +74,15 @@ uv run test.py
 - **模型名稱**: `gemma-4-26B-A4B-it`
 - **量化格式**: `Q4_K_M`
 - **來源**: [Unsloth Hugging Face](https://huggingface.co/unsloth)
+
+## 手動轉換模型成gguf格式
+1. clone模型檔
+2. 執行`make build`，建立轉換所需的docker image
+3. 啟動container，並將來源模型檔和儲存完成檔案的資料夾都掛進容器
+    ```bash
+    docker run -itd --rm --name converter -v ./models:/workspace/models -v [模型檔資料夾]:/workspace/source converter:last
+    ```
+4. 進到容器內，執行轉換腳本
+    ```bash
+    python3 llama.cpp/convert_hf_to_gguf.py ./source/ --outfile models/[完成的gguf檔名] --outtype q8_0
+    ```
