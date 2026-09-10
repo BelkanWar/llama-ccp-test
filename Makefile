@@ -1,5 +1,5 @@
-MODEL="gemma-4-26B-A4B-it"
-VERSION="${MODEL}-UD-Q4_K_M.gguf"
+MODEL="gemma-4-E4B-it"
+VERSION="${MODEL}-Q4_K_M.gguf"
 URL="https://huggingface.co/unsloth/${MODEL}-GGUF/resolve/main/${VERSION}"
 
 download-model ::
