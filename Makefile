@@ -1,9 +1,11 @@
-MODEL="gemma-4-E4B-it"
-VERSION="${MODEL}-Q8.gguf"
-URL="https://huggingface.co/unsloth/${MODEL}-GGUF/resolve/main/${VERSION}"
+MODEL="gemma-4-E4B"
+LLM_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}_q4_0-it.gguf"
+MMPROJ_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}-it-mmproj.gguf"
 
 download-model ::
-	curl -L -o ./models/${VERSION} ${URL}
+	echo ${LLM_URL}
+	curl -L -o ./models/${MODEL}.gguf ${LLM_URL}
+	curl -L -o ./models/${MODEL}-mmproj.gguf ${MMPROJ_URL}
 
 install-claude-code ::
 	# reference: https://code.claude.com/docs/zh-TW/setup
@@ -18,10 +20,25 @@ install-claude-code ::
 	echo "" >> ~/.bashrc
 
 model-up-cpu ::
-	docker run -itd --rm --name llama -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
+	docker run -itd --rm \
+	--name llama \
+	-v ./models:/models \
+	-p 8080:8080 \
+	ghcr.io/ggml-org/llama.cpp:server-cuda13 \
+	-m /models/${MODEL}.gguf \
+	--mmproj /models/${MODEL}-mmproj.gguf \
+	--ctx-size 65536 
 
 model-up ::
-	docker run -itd --rm --name llama --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
+	docker run -itd --rm \
+	--name llama \
+	--gpus all \
+	-v ./models:/models \
+	-p 8080:8080 \
+	ghcr.io/ggml-org/llama.cpp:server-cuda13 \
+	-m /models/${MODEL}.gguf \
+	--mmproj /models/${MODEL}-mmproj.gguf \
+	--ctx-size 65536 
 
 build ::
 	docker build -f Dockerfile -t converter:last . 
