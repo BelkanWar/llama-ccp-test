@@ -18,10 +18,10 @@ install-claude-code ::
 	echo "" >> ~/.bashrc
 
 model-up-cpu ::
-	docker run --rm -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
+	docker run -itd --rm --name llama -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
 
 model-up ::
-	docker run --rm --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
+	docker run -itd --rm --name llama --gpus all -v ./models:/models -p 8080:8080 ghcr.io/ggml-org/llama.cpp:server-cuda13 -m /models/${VERSION} --ctx-size 65536 
 
 build ::
 	docker build -f Dockerfile -t converter:last . 
