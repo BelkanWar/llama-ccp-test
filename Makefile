@@ -27,10 +27,13 @@ model-up-cpu ::
 	ghcr.io/ggml-org/llama.cpp:server-cuda13 \
 	-m /models/${MODEL}.gguf \
 	--mmproj /models/${MODEL}-mmproj.gguf \
+	--jinja \
+	--chat-template-file /models/google-gemma-4-31B-it-interleaved.jinja \
+	--chat-template-kwargs '{"enable_thinking":true}' \
 	--ctx-size 65536 
 
 model-up ::
-	docker run -itd --rm \
+	docker run --rm \
 	--name llama \
 	--gpus all \
 	-v ./models:/models \
@@ -38,6 +41,9 @@ model-up ::
 	ghcr.io/ggml-org/llama.cpp:server-cuda13 \
 	-m /models/${MODEL}.gguf \
 	--mmproj /models/${MODEL}-mmproj.gguf \
+	--jinja \
+	--chat-template-file /models/google-gemma-4-31B-it-interleaved.jinja \
+	--chat-template-kwargs '{"enable_thinking":true}' \
 	--ctx-size 65536 
 
 build ::
