@@ -33,7 +33,7 @@ model-up-cpu ::
 	--ctx-size 65536 
 
 model-up ::
-	docker run --rm \
+	docker run -itd --rm \
 	--name llama \
 	--gpus all \
 	-v ./models:/models \
