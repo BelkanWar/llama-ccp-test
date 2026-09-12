@@ -30,7 +30,8 @@ model-up-cpu ::
 	--jinja \
 	--chat-template-file /models/google-gemma-4-31B-it-interleaved.jinja \
 	--chat-template-kwargs '{"enable_thinking":true}' \
-	--ctx-size 65536 
+	--ctx-size 65536 \
+	--ubatch-size 2048 \
 
 model-up ::
 	docker run -itd --rm \
@@ -44,7 +45,8 @@ model-up ::
 	--jinja \
 	--chat-template-file /models/google-gemma-4-31B-it-interleaved.jinja \
 	--chat-template-kwargs '{"enable_thinking":true}' \
-	--ctx-size 65536 
+	--ctx-size 65536 \
+	--ubatch-size 2048 \
 
 build ::
 	docker build -f Dockerfile -t converter:last . 
