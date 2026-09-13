@@ -12,7 +12,7 @@ llm = Llama(
     model_path="./models/gemma-4-E4B.gguf",
     chat_handler=Gemma4ChatHandler(clip_model_path="./models/gemma-4-E4B-mmproj.gguf"),
     n_ctx=65536,
-    n_gpu_layers=0,
+    n_gpu_layers=-1,  # 0 代表全部load在system ram, -1 表示全部層load到GPU
     logits_all=True,
     verbose=False
 )
