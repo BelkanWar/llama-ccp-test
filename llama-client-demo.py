@@ -1,6 +1,7 @@
 import base64
 from llama_cpp import Llama
-# claude --resume 64921ba8-d32a-440f-9ca3-4dae1fe81bf0
+from llama_cpp.llama_chat_format import Gemma4ChatHandler
+
 def encode_image(image_path):
     """Converts an image to a base64 encoded string."""
     with open(image_path, "rb") as image_file:
@@ -9,10 +10,11 @@ def encode_image(image_path):
 
 llm = Llama(
     model_path="./models/gemma-4-E4B.gguf",
-    clip_model_path="./models/gemma-4-E4B-mmproj.gguf",
+    chat_handler=Gemma4ChatHandler(clip_model_path="./models/gemma-4-E4B-mmproj.gguf"),
     n_ctx=65536,
-    n_gpu_layers=-1,  # 0 代表全部load在system ram, -1 表示全部層load到GPU
-    logits_all=True
+    n_gpu_layers=0,
+    logits_all=True,
+    verbose=False
 )
 
 output = llm.create_chat_completion(
@@ -29,19 +31,3 @@ output = llm.create_chat_completion(
 
 print(output['choices'][0]['message']['content'])
 llm.close()
-
-# def query(prompt:str, image_path:str):
-#     output = llm.create_chat_completion(
-#         messages=[
-#             {
-#                 "role": "user",
-#                 "content": [
-#                     {"type": "text", "text": prompt},
-#                     {"type": "image_url", "image_url": {"url": encode_image(image_path)}}
-#                 ]
-#             }
-#         ]
-#     )
-#     return output['choices'][0]['message']['content']
-
-# print(query("這張圖片裡有什麼？", "/home/belkanwar/Downloads/PXL_20260625_013230826.jpg"))
