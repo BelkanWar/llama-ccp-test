@@ -19,6 +19,29 @@ install-claude-code ::
 	echo export CLAUDE_CODE_DISABLE_1M_CONTEXT=1 >> ~/.bashrc           # 停用百萬上下文防止記憶體崩潰
 	echo "" >> ~/.bashrc
 
+define OPENCODE_CONFIG
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "local": {
+      "options": {
+        "baseURL": "http://localhost:8080",
+        "apiKey": "sk-dummy"
+      },
+      "models": {
+        "gemma-4": {}
+      }
+    }
+  },
+  "model": "local/gemma-4"
+}
+endef
+
+install-opencode ::
+	curl -fsSL https://opencode.ai/install | bash
+	mkdir -p /home/$USER/.config/opencode/
+	$(file > /home/$USER/.config/opencode/opencode.jsonc,$(OPENCODE_CONFIG))
+
 model-up-cpu ::
 	docker run -itd --rm \
 	--name llama \
