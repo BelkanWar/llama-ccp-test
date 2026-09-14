@@ -40,7 +40,7 @@ endef
 install-opencode ::
 	curl -fsSL https://opencode.ai/install | bash
 	mkdir -p /home/${USER}/.config/opencode/
-	$(file > /home/${USER}/.config/opencode/opencode.jsonc,$(OPENCODE_CONFIG))
+	@echo "$$OPENCODE_CONFIG" > /home/${USER}/.config/opencode/opencode.json
 
 model-up-cpu ::
 	docker run -itd --rm \
