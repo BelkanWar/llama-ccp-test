@@ -29,12 +29,18 @@ define OPENCODE_CONFIG
         "apiKey": "sk-dummy"
       },
       "models": {
-        "gemma-4": {}
+        "gemma-4": {
+          "attachment": true,
+          "modalities": {
+            "input": ["text", "image"]
+          }
+        }
       }
     }
   },
   "model": "local/gemma-4"
 }
+
 endef
 
 install-opencode ::
