@@ -1,6 +1,6 @@
-MODEL="gemma-4-26B"
-LLM_URL="https://huggingface.co/google/${MODEL}-A4B-it-qat-q4_0-gguf/resolve/main/${MODEL}_q4_0-it.gguf"
-MMPROJ_URL="https://huggingface.co/google/${MODEL}-A4B-it-qat-q4_0-gguf/resolve/main/${MODEL}-it-mmproj.gguf"
+MODEL="gemma-4-E4B"
+LLM_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}_q4_0-it.gguf"
+MMPROJ_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}-it-mmproj.gguf"
 
 download-model ::
 	echo ${LLM_URL}
@@ -40,7 +40,9 @@ endef
 install-opencode ::
 	curl -fsSL https://opencode.ai/install | bash
 	mkdir -p /home/${USER}/.config/opencode/
-	@echo "$$OPENCODE_CONFIG" > /home/${USER}/.config/opencode/opencode.json
+
+config-opencode :: 
+	$(file > /home/${USER}/.config/opencode/opencode.json,$(OPENCODE_CONFIG))
 
 model-up-cpu ::
 	docker run -itd --rm \
