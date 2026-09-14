@@ -21,7 +21,7 @@ install-claude-code ::
 
 define OPENCODE_CONFIG
 {
-  "$schema": "https://opencode.ai/config.json",
+  "$$schema": "https://opencode.ai/config.json",
   "provider": {
     "local": {
       "options": {
