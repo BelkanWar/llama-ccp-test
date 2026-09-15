@@ -1,6 +1,14 @@
-MODEL="gemma-4-E4B"
-LLM_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}_q4_0-it.gguf"
-MMPROJ_URL="https://huggingface.co/google/${MODEL}-it-qat-q4_0-gguf/resolve/main/${MODEL}-it-mmproj.gguf"
+MODEL_TYPE ?= large
+
+ifeq ($(MODEL_TYPE),small)
+	MODEL = gemma-4-E4B
+	LLM_URL = https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf/resolve/main/gemma-4-E4B_q4_0-it.gguf
+	MMPROJ_URL = https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf/resolve/main/gemma-4-E4B-it-mmproj.gguf
+else
+	MODEL = gemma-4-26B
+	LLM_URL = https://huggingface.co/google/gemma-4-26B-A4B-it-qat-q4_0-gguf/resolve/main/gemma-4-26B_q4_0-it.gguf
+	MMPROJ_URL = https://huggingface.co/google/gemma-4-26B-A4B-it-qat-q4_0-gguf/resolve/main/gemma-4-26B-it-mmproj.gguf
+endif
 
 download-model ::
 	echo ${LLM_URL}
