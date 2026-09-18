@@ -44,10 +44,11 @@ make model-up
 
 ### 3. 配置 Claude Code
 
-如果你想讓 Claude Code 使用這個本地伺服器，請執行以下指令來設定環境變數。這會修改你的 `~/.bashrc`：
+如果你想讓 opencode 使用這個本地伺服器，請執行以下指令來安裝和設定
 
 ```bash
-make install-claude-code
+make install-opencode
+make config-opencode
 ```
 
 *注意：執行後請重啟終端機或執行 `source ~/.bashrc` 以使設定生效。*
