@@ -45,6 +45,7 @@ install-opencode ::
 
 config-opencode :: 
 	$(file > /home/${USER}/.config/opencode/opencode.json,$(OPENCODE_CONFIG))
+	echo 'export OPENCODE_ENABLE_EXA=1' >> ~/.bashrc
 
 model-up-cpu ::
 	docker run -itd --rm \
