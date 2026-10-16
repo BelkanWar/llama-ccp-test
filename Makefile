@@ -52,7 +52,7 @@ model-up-cpu ::
 	--name llama \
 	-v ./models:/models \
 	-p 8080:8080 \
-	ghcr.io/ggml-org/llama.cpp:server-cuda13 \
+	ghcr.io/ggml-org/llama.cpp:server \
 	-m /models/${MODEL}.gguf \
 	--mmproj /models/${MODEL}-mmproj.gguf \
 	--jinja \
