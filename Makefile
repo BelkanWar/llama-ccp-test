@@ -18,15 +18,17 @@ download-model ::
 define OPENCODE_CONFIG
 {
   "$$schema": "https://opencode.ai/config.json",
-  "provider": {
+  "providers": {
     "local": {
-      "options": {
-        "baseURL": "http://localhost:8080",
+      "package": "@ai-sdk/openai-compatible",
+      "name": "llama-server (local)",
+      "settings": {
+        "baseURL": "http://localhost:8080/v1",
         "apiKey": "sk-dummy"
       },
       "models": {
         "gemma-4": {
-          "attachment": true,
+          "name": "Gemma 4 Local"
           "modalities": {
             "input": ["text", "image"]
           }
