@@ -28,7 +28,7 @@ define OPENCODE_CONFIG
       },
       "models": {
         "gemma-4": {
-          "name": "Gemma 4 Local"
+          "name": "Gemma 4 Local",
           "modalities": {
             "input": ["text", "image"]
           }
